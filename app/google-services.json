@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "278563507657",
+    "firebase_url": "https://spiral2-db6e7.firebaseio.com",
+    "project_id": "spiral2-db6e7",
+    "storage_bucket": "spiral2-db6e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278563507657:android:1d0a9ae93c3297fef22c18",
+        "android_client_info": {
+          "package_name": "com.example.spiral2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278563507657-3hissrp051ad9bc0n234gch3vn4gbfmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj5jvwFruGO1eOAsfCQm1RzG4YeEjqXBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278563507657-3hissrp051ad9bc0n234gch3vn4gbfmf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
