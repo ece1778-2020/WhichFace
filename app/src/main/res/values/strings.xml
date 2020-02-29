@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">spiral2</string>
+    <string name="uploadButtom">upload</string>
 </resources>
