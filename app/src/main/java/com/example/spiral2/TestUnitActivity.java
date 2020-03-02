@@ -136,7 +136,7 @@ public class TestUnitActivity  extends AppCompatActivity {
 
             if(position == number)
             {
-                Intent intent=new Intent(TestUnitActivity.this,MainActivity.class);
+                Intent intent=new Intent(TestUnitActivity.this,ResultActivity.class);
                 intent.putStringArrayListExtra("uidlist",uidlist);
                 intent.putStringArrayListExtra("labellist",labellist);
                 intent.putStringArrayListExtra("resultlist",resultlist);
