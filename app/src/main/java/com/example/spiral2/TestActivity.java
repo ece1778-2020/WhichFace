@@ -25,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -68,7 +69,7 @@ public class TestActivity  extends AppCompatActivity {
        final int number = Integer.parseInt(testnumber.getText().toString());
         check = 0;
         mfirestore.collection("images")
-                .orderBy("score")
+                .orderBy("score", Query.Direction.ASCENDING)
                 .limit(number)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

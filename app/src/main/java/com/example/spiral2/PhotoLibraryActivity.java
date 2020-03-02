@@ -65,7 +65,7 @@ public class PhotoLibraryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_photolibrary);
         i=0;
         path = null;
         mAuth = FirebaseAuth.getInstance();
@@ -79,7 +79,6 @@ public class PhotoLibraryActivity extends AppCompatActivity {
         uidlist=intent.getStringArrayListExtra("uidlist");
         labellist=intent.getStringArrayListExtra("labellist");
         scorelist=intent.getStringArrayListExtra("scorelist");
-        number=intent.getIntExtra("check",0);
         for ( int j=0;j<uidlist.size();j++){
 
             path="raw_images/"+uidlist.get(j)+".jpg";
@@ -94,7 +93,7 @@ public class PhotoLibraryActivity extends AppCompatActivity {
                                                                          rface.add(graph);
                                                                          Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
                                                                          i=i+1;
-                                                                         if(i == number){
+                                                                         if(i == uidlist.size()){
 
                                                                              Custom2Adapter customAdapter = new Custom2Adapter(PhotoLibraryActivity.this, rface,labellist,uidlist,scorelist);
                                                                              recyclerView.setAdapter(customAdapter);

@@ -60,6 +60,7 @@ public class Custom2Adapter extends RecyclerView.Adapter <Custom2Adapter.MyViewH
                 intent.putExtra("uidlist",uid);
                 intent.putExtra("labellist",label);
                 intent.putExtra("scorelist",score);
+                intent.putExtra("position",position);
                 context.startActivity(intent);
             }
         });
