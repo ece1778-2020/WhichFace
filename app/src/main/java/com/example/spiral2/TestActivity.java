@@ -43,6 +43,8 @@ public class TestActivity  extends AppCompatActivity {
     private ArrayList<String> uidlist = new ArrayList<String>();
     private ArrayList<String> scorelist = new ArrayList<String>();
     private ArrayList<String> countlist = new ArrayList<String>();
+    private ArrayList<String> labellist = new ArrayList<String>();
+    private ArrayList<String> resultlist = new ArrayList<String>();
 
 
     private int check;
@@ -81,19 +83,24 @@ public class TestActivity  extends AppCompatActivity {
                                                        String score = document.getString("score");
                                                        String uid=document.getId();
                                                        uidlist.add(uid);
+                                                       labellist.add(label);
                                                        scorelist.add(score);
                                                        countlist.add(count);
 
 
 
-                                                       Log.d(TAG, uid + " => " + label+" score: "+score+" time:"+count);
+                                                       Log.d(TAG, uid + " => " + label+" score: "+score+" count:"+count);
 
                                                        if(check==number){
-                                                           Intent intent=new Intent(TestActivity.this,MainActivity.class);
-                                                           intent.putStringArrayListExtra("uldlist",uidlist);
-                                                           //intent.putStringArrayListExtra("scorelist",scorelist);
-                                                           //intent.putStringArrayListExtra("countlist",countlist);
+                                                           Intent intent=new Intent(TestActivity.this,TestUnitActivity.class);
+                                                           intent.putStringArrayListExtra("uidlist",uidlist);
+                                                           intent.putStringArrayListExtra("scorelist",scorelist);
+                                                           intent.putStringArrayListExtra("countlist",countlist);
+                                                           intent.putStringArrayListExtra("labellist",labellist);
+                                                           intent.putStringArrayListExtra("resultlist",resultlist);
+
                                                            intent.putExtra("position",0);
+                                                           intent.putExtra("number",number);
                                                            startActivity(intent);
                                                        }
 
