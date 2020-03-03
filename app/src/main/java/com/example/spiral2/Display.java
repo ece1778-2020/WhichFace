@@ -53,6 +53,9 @@ import java.util.Map;
 public class Display extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Boolean rawImageSuccess = false;
+    Boolean cutFaceSuccess = false;
+    Boolean nameSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +188,7 @@ public class Display extends AppCompatActivity {
         writeDatabase(id,name.getText().toString(),"0","0");
     }
 
-    public void upload(Bitmap bitmap,String id,Boolean isRawImage){
+    public void upload(Bitmap bitmap, String id, final Boolean isRawImage){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         String filePath;
@@ -209,7 +212,13 @@ public class Display extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                showToast("image uploaded");
+                //showToast("image uploaded");
+                if(isRawImage){
+                    rawImageSuccess = true;
+                }else{
+                    cutFaceSuccess = true;
+                }
+                checkSuccess();
             }
         });
     }
@@ -225,7 +234,8 @@ public class Display extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("database", "database successfully written!");
-
+                        nameSuccess = true;
+                        checkSuccess();
                     }
 
                 })
@@ -244,6 +254,15 @@ public class Display extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public void checkSuccess(){
+        if(cutFaceSuccess&&rawImageSuccess&&nameSuccess){
+            showToast("upload succeed");
+            Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(myIntent);
+            finish();
+        }
     }
 
 
