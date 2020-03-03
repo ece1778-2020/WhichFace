@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> uidlist = new ArrayList<String>();
     private ArrayList<String> scorelist = new ArrayList<String>();
     private ArrayList<String> labellist = new ArrayList<String>();
-
+    public int RESULT_LOAD_IMG = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,5 +92,21 @@ public class MainActivity extends AppCompatActivity {
     private void initializeViews() {
         test = findViewById(R.id.test);
         photo=findViewById(R.id.photo);
+    }
+
+    public void uploadOnClick(View view){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+    }
+    @Override
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        if (reqCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            Intent i = new Intent(this, Display.class);
+            i.putExtra("imageUri", imageUri.toString());
+            startActivity(i);
+            finish();
+        }
     }
 }
