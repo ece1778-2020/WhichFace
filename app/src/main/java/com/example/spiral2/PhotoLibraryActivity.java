@@ -68,6 +68,7 @@ public class PhotoLibraryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photolibrary);
         i=0;
         path = null;
+        graph=null;
         mAuth = FirebaseAuth.getInstance();
         mfirestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -79,37 +80,42 @@ public class PhotoLibraryActivity extends AppCompatActivity {
         uidlist=intent.getStringArrayListExtra("uidlist");
         labellist=intent.getStringArrayListExtra("labellist");
         scorelist=intent.getStringArrayListExtra("scorelist");
-        for ( int j=0;j<uidlist.size();j++){
 
-            path="raw_images/"+uidlist.get(j)+".jpg";
-            Log.d(TAG, path);
-            StorageReference photoRef = sReference.child(path);
-            final long ONE_MEGABYTE = 1024 * 1024;
-            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                                                     @Override
-                                                                     public void onSuccess(byte[] bytes) {
-                                                                         // Data for "images/island.jpg" is returns, use this as needed
-                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                                         rface.add(graph);
-                                                                         Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
-                                                                         i=i+1;
-                                                                         if(i == uidlist.size()){
+        display();
+//        for ( int j=0;j<uidlist.size();j++){
+//
+//            path="raw_images/"+uidlist.get(j)+".jpg";
+//            Log.d(TAG, path);
+//            StorageReference photoRef = sReference.child(path);
+//            final long ONE_MEGABYTE = 1024 * 1024;
+//            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                                                                     @Override
+//                                                                     public void onSuccess(byte[] bytes) {
+//                                                                         // Data for "images/island.jpg" is returns, use this as needed
+//                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                                                         rface.add(graph);
+//                                                                         Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
+//                                                                         i=i+1;
+//                                                                         if(i == uidlist.size()){
+//
+//                                                                             Custom2Adapter customAdapter = new Custom2Adapter(PhotoLibraryActivity.this, rface,labellist,uidlist,scorelist);
+//                                                                             recyclerView.setAdapter(customAdapter);
+//                                                                         }
+//
+//
+//                                                                         //View2.setImageBitmap(graph);;
+//                                                                     }
+//                                                                 }
+//            ).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                    Log.d(TAG, "zhe ge qing kuang");
+//                }
+//            });
 
-                                                                             Custom2Adapter customAdapter = new Custom2Adapter(PhotoLibraryActivity.this, rface,labellist,uidlist,scorelist);
-                                                                             recyclerView.setAdapter(customAdapter);
-                                                                         }
 
-                                                                         //View2.setImageBitmap(graph);;
-                                                                     }
-                                                                 }
-            ).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Log.d(TAG, "zhe ge qing kuang");
-                }
-            });
-        }
+   //     }
 
 
 
@@ -135,8 +141,40 @@ public class PhotoLibraryActivity extends AppCompatActivity {
 
 
 
+    private void display() {
+        path="raw_images/"+uidlist.get(rface.size())+".jpg";
+        Log.d(TAG, path);
+        StorageReference photoRef = sReference.child(path);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                                 @Override
+                                                                 public void onSuccess(byte[] bytes) {
+                                                                     // Data for "images/island.jpg" is returns, use this as needed
+                                                                     graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                                     rface.add(graph);
+                                                                     Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
+                                                                     i=i+1;
+                                                                     if(i == uidlist.size()){
+
+                                                                         Custom2Adapter customAdapter = new Custom2Adapter(PhotoLibraryActivity.this, rface,labellist,uidlist,scorelist);
+                                                                         recyclerView.setAdapter(customAdapter);
+                                                                     }
+                                                                     else{
+                                                                         display();
+                                                                     }
 
 
+                                                                     //View2.setImageBitmap(graph);;
+                                                                 }
+                                                             }
+        ).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.d(TAG, "zhe ge qing kuang");
+            }
+        });
+    }
 
 
 

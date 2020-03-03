@@ -48,8 +48,8 @@ public class ResultActivity extends AppCompatActivity {
     private String path;
     private String text;
     private int number;
-    private int i;
-    private static final String TAG = "result";
+    private int i,j;
+    private static final String TAG = "finalre";
     private Bitmap graph;
 
     private ArrayList<Bitmap> rface = new ArrayList<Bitmap>();
@@ -67,6 +67,7 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         i=0;
+        j=0;
         path = null;
         mAuth = FirebaseAuth.getInstance();
         mfirestore = FirebaseFirestore.getInstance();
@@ -80,58 +81,62 @@ public class ResultActivity extends AppCompatActivity {
         labellist=intent.getStringArrayListExtra("labellist");
         resultlist=intent.getStringArrayListExtra("resultlist");
         number=intent.getIntExtra("number",0);
-        for ( int j=0;j<number;j++){
-            path="face/"+uidlist.get(j)+".jpg";
-            Log.d(TAG, path);
-            StorageReference photoRef = sReference.child(path);
-            final long ONE_MEGABYTE = 1024 * 1024;
-            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                                                     @Override
-                                                                     public void onSuccess(byte[] bytes) {
-                                                                         // Data for "images/island.jpg" is returns, use this as needed
-                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                                         mface.add(graph);
-                                                                         Log.d(TAG, "zheli");
+        display1();
 
-                                                                         //View2.setImageBitmap(graph);;
-                                                                     }
-                                                                 }
-            ).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Log.d(TAG, "zhe ge qing kuang");
-                }
-            });
+        display2();
 
-            path="raw_images/"+uidlist.get(j)+".jpg";
-            Log.d(TAG, path);
-            photoRef = sReference.child(path);
-            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                                                     @Override
-                                                                     public void onSuccess(byte[] bytes) {
-                                                                         // Data for "images/island.jpg" is returns, use this as needed
-                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                                         rface.add(graph);
-                                                                         Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
-                                                                         i=i+1;
-                                                                         if(i == number){
-
-                                                                             CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface,resultlist,labellist);
-                                                                             recyclerView.setAdapter(customAdapter);
-                                                                         }
-
-                                                                         //View2.setImageBitmap(graph);;
-                                                                     }
-                                                                 }
-            ).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Log.d(TAG, "zhe ge qing kuang");
-                }
-            });
-        }
+//        for ( int j=0;j<number;j++){
+//            path="face/"+uidlist.get(j)+".jpg";
+//            Log.d(TAG, path);
+//            StorageReference photoRef = sReference.child(path);
+//            final long ONE_MEGABYTE = 1024 * 1024;
+//            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                                                                     @Override
+//                                                                     public void onSuccess(byte[] bytes) {
+//                                                                         // Data for "images/island.jpg" is returns, use this as needed
+//                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                                                         mface.add(graph);
+//                                                                         Log.d(TAG, "zheli");
+//
+//                                                                         //View2.setImageBitmap(graph);;
+//                                                                     }
+//                                                                 }
+//            ).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                    Log.d(TAG, "zhe ge qing kuang");
+//                }
+//            });
+//
+//            path="raw_images/"+uidlist.get(j)+".jpg";
+//            Log.d(TAG, path);
+//            photoRef = sReference.child(path);
+//            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                                                                     @Override
+//                                                                     public void onSuccess(byte[] bytes) {
+//                                                                         // Data for "images/island.jpg" is returns, use this as needed
+//                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                                                         rface.add(graph);
+//                                                                         Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
+//                                                                         i=i+1;
+//                                                                         if(i == number){
+//
+//                                                                             CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface,resultlist,labellist);
+//                                                                             recyclerView.setAdapter(customAdapter);
+//                                                                         }
+//
+//                                                                         //View2.setImageBitmap(graph);;
+//                                                                     }
+//                                                                 }
+//            ).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                    Log.d(TAG, "zhe ge qing kuang");
+//                }
+//            });
+//        }
 
 
 
@@ -159,8 +164,76 @@ public class ResultActivity extends AppCompatActivity {
 
 
 
+    private void display1() {
+        path="raw_images/"+uidlist.get(rface.size())+".jpg";
+        Log.d(TAG, path);
+        StorageReference photoRef = sReference.child(path);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                                 @Override
+                                                                 public void onSuccess(byte[] bytes) {
+                                                                     // Data for "images/island.jpg" is returns, use this as needed
+                                                                     graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                                     rface.add(graph);
+                                                                     Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
+                                                                     i=i+1;
+                                                                     if(i == uidlist.size()){
 
 
+                                                                     }
+                                                                     else{
+                                                                         display1();
+                                                                     }
+
+
+                                                                     //View2.setImageBitmap(graph);;
+                                                                 }
+                                                             }
+        ).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.d(TAG, "zhe ge qing kuang");
+            }
+        });
+    }
+
+    private void display2() {
+        path="face/"+uidlist.get(mface.size())+".jpg";
+
+
+        StorageReference photoRef = sReference.child(path);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                                 @Override
+                                                                 public void onSuccess(byte[] bytes) {
+                                                                     // Data for "images/island.jpg" is returns, use this as needed
+                                                                     graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                                     mface.add(graph);
+                                                                     Log.d(TAG, "zheli:"+Integer.toString(j)+"--"+Integer.toString(number));
+                                                                     j=j+1;
+                                                                     if(j == uidlist.size()){
+                                                                         Log.d(TAG, Integer.toString(rface.size()));
+                                                                         Log.d(TAG, Integer.toString(mface.size()));
+                                                                         CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface,resultlist,labellist);
+                                                                         recyclerView.setAdapter(customAdapter);
+                                                                     }
+                                                                     else{
+                                                                         display2();
+                                                                     }
+
+
+                                                                     //View2.setImageBitmap(graph);;
+                                                                 }
+                                                             }
+        ).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Log.d(TAG, "zhe ge qing kuang");
+            }
+        });
+    }
 
     private void initializeView() {
         back = findViewById(R.id.back);
