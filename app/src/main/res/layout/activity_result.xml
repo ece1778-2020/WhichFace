@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="0dp"
+    tools:context=".ResultActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:drawableStart="@color/colorAccent"
+        android:drawableLeft="@color/colorAccent"
+        android:drawableTop="@color/colorAccent"
+        android:drawableEnd="@color/colorAccent"
+        android:drawableRight="@color/colorAccent"
+        android:drawableBottom="@color/colorAccent"
+        android:gravity="center_horizontal"
+        android:text="Test Result"
+        app:autoSizeTextType="none" />
+
+
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:text="Back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="444dp"
+        tools:context=".ProfileActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</LinearLayout>
