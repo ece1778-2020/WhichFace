@@ -37,17 +37,10 @@ public class upload extends AppCompatActivity {
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         if (reqCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
-            ImageView image = (ImageView)findViewById(R.id.imageView);
-            Bitmap bitmap= null;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                Intent i = new Intent(this, Display.class);
-                i.putExtra("bitmap", bitmap);
-                startActivity(i);
-                finish();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Intent i = new Intent(this, Display.class);
+            i.putExtra("imageUri", imageUri.toString());
+            startActivity(i);
+            finish();
         }
     }
 }
