@@ -14,7 +14,7 @@
         android:layout_height="115dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="138dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -28,6 +28,6 @@
         android:layout_height="115dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="9dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher" />
 </RelativeLayout>
