@@ -109,7 +109,7 @@ public class TestUnitActivity  extends AppCompatActivity {
 
     private void submission()
     {
-        if(position<number){
+        if(position<=number){
             Log.d(TAG, uidlist.get(position)+"---"+scorelist.get(position));
 
             String label=name.getText().toString();
@@ -133,9 +133,13 @@ public class TestUnitActivity  extends AppCompatActivity {
                 mfirestore.collection("images").document(uidlist.get(position)).update("count",Integer.toString(count));
             }
             position=position+1;
+            Log.d(TAG, Integer.toString(position)+"-check-"+Integer.toString(number));
 
-            if(position == number)
+            if(position > number)
             {
+                Log.d(TAG, Integer.toString(position)+"-check2-"+Integer.toString(number));
+
+                number=number+1;
                 Intent intent=new Intent(TestUnitActivity.this,ResultActivity.class);
                 intent.putStringArrayListExtra("uidlist",uidlist);
                 intent.putStringArrayListExtra("labellist",labellist);
@@ -143,7 +147,7 @@ public class TestUnitActivity  extends AppCompatActivity {
                 intent.putExtra("number",number);
                 startActivity(intent);
             }
-
+           else{
             Intent intent=new Intent(TestUnitActivity.this,TestUnitActivity.class);
             intent.putStringArrayListExtra("uidlist",uidlist);
             intent.putStringArrayListExtra("scorelist",scorelist);
@@ -151,6 +155,14 @@ public class TestUnitActivity  extends AppCompatActivity {
             intent.putStringArrayListExtra("labellist",labellist);
             intent.putStringArrayListExtra("resultlist",resultlist);
             intent.putExtra("position",position);
+            intent.putExtra("number",number);
+            startActivity(intent);}
+        }else{
+            number=number+1;
+            Intent intent=new Intent(TestUnitActivity.this,ResultActivity.class);
+            intent.putStringArrayListExtra("uidlist",uidlist);
+            intent.putStringArrayListExtra("labellist",labellist);
+            intent.putStringArrayListExtra("resultlist",resultlist);
             intent.putExtra("number",number);
             startActivity(intent);
         }
