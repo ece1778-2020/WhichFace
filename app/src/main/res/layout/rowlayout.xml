@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="450dp"
 
     android:padding="5dp">
     <!--
@@ -11,9 +11,9 @@
     <ImageView
         android:id="@+id/mface"
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="138dp"
+        android:layout_marginBottom="200dp"
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher" />
 
@@ -25,9 +25,9 @@
     <ImageView
         android:id="@+id/rface"
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="0dp"
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher" />
 </RelativeLayout>
