@@ -99,9 +99,9 @@ public class TestActivity  extends AppCompatActivity {
                                                            intent.putStringArrayListExtra("countlist",countlist);
                                                            intent.putStringArrayListExtra("labellist",labellist);
                                                            intent.putStringArrayListExtra("resultlist",resultlist);
-
+                                                           check=check-1;
                                                            intent.putExtra("position",0);
-                                                           intent.putExtra("number",number);
+                                                           intent.putExtra("number",check);
                                                            startActivity(intent);
                                                        }
 
