@@ -23,20 +23,21 @@
         android:layout_marginTop="40dp"
         android:paddingTop="15dip"
         android:paddingBottom="15dip">
+
     <ImageView
         android:id="@+id/rface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_weight="1"
-        android:scaleType="fitStart"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_launcher_background"></ImageView>
 
     <ImageView
         android:id="@+id/mface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_weight="1"
-        android:scaleType="fitStart"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_launcher_background"></ImageView>
     </LinearLayout>
 

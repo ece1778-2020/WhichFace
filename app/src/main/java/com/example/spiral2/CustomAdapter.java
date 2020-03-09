@@ -47,10 +47,10 @@ public class CustomAdapter extends RecyclerView.Adapter <CustomAdapter.MyViewHol
         holder.rimage.setImageBitmap(rface.get(position));
         holder.mimage.setImageBitmap(mface.get(position));
         if(result.get(position).equals("yes")){
-            holder.text.setText("Congratualtions the result is correct for this image");
+            holder.text.setText(Integer.toString(position+1)+". Congratualtions the result is correct for this image");
             holder.text.setTextColor(Color.GREEN);
         }else{
-            holder.text.setText("Sorry your answer is wrong the real name is "+label.get(position));
+            holder.text.setText(Integer.toString(position+1)+". Sorry your answer is wrong the real name is "+label.get(position));
             holder.text.setTextColor(Color.RED);
         }
 
