@@ -4,16 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".TestActivity">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/test"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:layout_width="380dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
         android:gravity="center_horizontal"
-        android:text="How many image you want to test " />
+        android:text="How many image you want to test?"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/amount"
@@ -26,12 +38,11 @@
 
     <Button
         android:id="@+id/test"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Test"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="353dp" />
+        android:layout_marginTop="20dp"
+        android:text="Test" />
 
     <ProgressBar
         android:id="@+id/progressBar"

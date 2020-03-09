@@ -4,30 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="0dp"
     tools:context=".PhotoLibraryActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:drawableStart="@color/colorAccent"
-        android:drawableLeft="@color/colorAccent"
-        android:drawableTop="@color/colorAccent"
-        android:drawableEnd="@color/colorAccent"
-        android:drawableRight="@color/colorAccent"
-        android:drawableBottom="@color/colorAccent"
-        android:gravity="center_horizontal"
-        android:text="Your Photo Library"
-        app:autoSizeTextType="none" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Photo library"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        />
 
 
 
     <Button
         android:id="@+id/back"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Back" />
 
     <RelativeLayout
