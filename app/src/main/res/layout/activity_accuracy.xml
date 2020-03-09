@@ -13,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Testing"
+        android:text="Accuracy"
         android:textSize="24sp"
         android:textStyle="bold" />
 
