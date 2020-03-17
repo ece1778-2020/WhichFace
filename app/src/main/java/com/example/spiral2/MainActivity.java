@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, Display.class);
             i.putExtra("imageUri", imageUri.toString());
             startActivity(i);
-            finish();
+            //finish();
         }
     }
 }

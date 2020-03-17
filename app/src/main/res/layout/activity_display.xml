@@ -11,35 +11,42 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
         <TextView
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/preview"
+            android:layout_marginBottom="30dp"
             android:textSize="24sp"
             android:textStyle="bold" />
-        <ImageView
-            android:id="@+id/originImage"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
-        <ImageView
-            android:id="@+id/cutFace"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="50dp"
+            >
+            <ImageView
+                android:id="@+id/originImage"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+            <ImageView
+                android:id="@+id/cutFace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+        </LinearLayout>
         <EditText
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginBottom="30dp"
             android:layout_gravity="center_horizontal"
             android:inputType="textPersonName"
             android:hint="Name" />
@@ -52,8 +59,6 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onSubmit"
             android:text="@string/submit" />
-
-
     </LinearLayout>
 
 

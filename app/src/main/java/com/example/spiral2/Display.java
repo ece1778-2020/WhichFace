@@ -56,7 +56,7 @@ public class Display extends AppCompatActivity {
     Boolean rawImageSuccess = false;
     Boolean cutFaceSuccess = false;
     Boolean nameSuccess = false;
-
+    ProgressDialog submitProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +68,7 @@ public class Display extends AppCompatActivity {
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(myUri));
             image.setImageBitmap(bitmap);
+
             cutFace(bitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -75,6 +76,7 @@ public class Display extends AppCompatActivity {
     }
 
     public void cutFace(final Bitmap bitmap){
+        final ProgressDialog cuttingProgress = showProgress("cutting face");
         FirebaseVisionFaceDetectorOptions highAccuracyOpts =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
@@ -116,7 +118,6 @@ public class Display extends AppCompatActivity {
                                                     face.getContour(FirebaseVisionFaceContour.FACE).getPoints();
 
 
-
                                             //Bitmap src = BitmapFactory.decodeResource(getResources(), cropDrawable);
                                             Bitmap output =
                                                     Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -137,8 +138,9 @@ public class Display extends AppCompatActivity {
                                             canvas.drawBitmap(bitmap, 0, 0, paint);
 
                                             ImageView cover = (ImageView) findViewById(R.id.cutFace);
+                                            cuttingProgress.cancel();
                                             cover.setImageBitmap(output);
-
+                                            showToast("face cut");
                                             // If classification was enabled:
                                             if (face.getSmilingProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
                                                 float smileProb = face.getSmilingProbability();
@@ -165,6 +167,7 @@ public class Display extends AppCompatActivity {
                                         // Task failed with an exception
                                         // ...
                                         e.printStackTrace();
+                                        showToast("Fail to cut face");
                                     }
                                 });
 
@@ -182,7 +185,7 @@ public class Display extends AppCompatActivity {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String id = Long.toString(timestamp.getTime());
-
+        submitProgress = showProgress("submitting images");
         upload(originBitmap,id,true);
         upload(cutFaceBitmap,id,false);
         writeDatabase(id,name.getText().toString(),"0","0");
@@ -261,9 +264,21 @@ public class Display extends AppCompatActivity {
             showToast("upload succeed");
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(myIntent);
+            submitProgress.cancel();
             finish();
         }
     }
+
+    public ProgressDialog showProgress(String msg)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(Display.this);
+        progressDialog.setMessage(msg);
+        progressDialog.setCancelable(false); // 加载完成消失
+        progressDialog.show();
+        return progressDialog;
+        //progressDialog.cancel(); to cancel the dialog
+    }
+
 
 
 }
