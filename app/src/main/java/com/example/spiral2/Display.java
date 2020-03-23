@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,6 +57,8 @@ public class Display extends AppCompatActivity {
     Boolean rawImageSuccess = false;
     Boolean cutFaceSuccess = false;
     Boolean nameSuccess = false;
+    String glass= "0";
+    Button removeglass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,15 @@ public class Display extends AppCompatActivity {
         setContentView(R.layout.activity_display);
         Intent intent = getIntent();
         ImageView image = (ImageView)findViewById(R.id.originImage);
+        removeglass=findViewById(R.id.rglass);
         Uri myUri = Uri.parse(intent.getExtras().getString("imageUri"));
+
+        removeglass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                glass="1";
+            }
+        });
 
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(myUri));
@@ -228,6 +239,9 @@ public class Display extends AppCompatActivity {
         image.put("name", name);
         image.put("count",count);
         image.put("score",score);
+        String check="0";
+        image.put("glass",glass);
+        image.put("check",check);
         db.collection("images").document(id)
                 .set(image)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

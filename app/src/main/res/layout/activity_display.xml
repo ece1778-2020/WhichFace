@@ -45,6 +45,13 @@
             android:hint="Name" />
 
         <Button
+            android:id="@+id/rglass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Remove Glass" />
+
+        <Button
             android:layout_marginTop="10dp"
             android:id="@+id/button"
             android:layout_width="wrap_content"
