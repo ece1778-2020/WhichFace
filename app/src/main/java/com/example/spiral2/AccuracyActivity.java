@@ -113,6 +113,10 @@ public class AccuracyActivity  extends AppCompatActivity {
                                                                                      cutFace(graph1);
 
                                                                                  }
+                                                                                 else{
+                                                                                     mface.setImageBitmap(graph1);
+
+                                                                                 }
 
                                                                              } else {
                                                                                  Log.d(TAG, "get failed with ", task.getException());
