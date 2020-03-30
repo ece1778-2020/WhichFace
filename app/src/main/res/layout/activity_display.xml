@@ -51,12 +51,13 @@
             android:inputType="textPersonName"
             android:hint="Name" />
 
-        <Button
-            android:id="@+id/rglass"
+        <CheckBox
+            android:id="@+id/rglassCheckbox"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Remove Glass" />
+            android:text="remove glasses" />
+
 
         <Button
             android:layout_marginTop="10dp"

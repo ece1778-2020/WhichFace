@@ -181,11 +181,14 @@ public class AccuracyActivity  extends AppCompatActivity {
 
     private void back()
     {
+        /*
         Intent intent = new Intent(AccuracyActivity.this, PhotoLibraryActivity.class);
         intent.putStringArrayListExtra("labellist",labellist);
         intent.putStringArrayListExtra("uidlist",uidlist);
         intent.putStringArrayListExtra("scorelist",scorelist);
         startActivity(intent);
+        */
+        onBackPressed();
 
     }
 

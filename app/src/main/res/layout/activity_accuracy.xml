@@ -17,29 +17,28 @@
         android:text="Accuracy"
         android:textSize="24sp"
         android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="horizontal"
-        android:layout_marginBottom="50dp"
         >
-
+        <ImageView
+            android:id="@+id/mface"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher" />
 
         <ImageView
             android:id="@+id/rface"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"></ImageView>
+            android:layout_gravity="center_horizontal"
+            android:layout_height="200dp"
+            android:src="@mipmap/ic_launcher" />
 
-        <ImageView
-            android:id="@+id/mface"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:src="@drawable/ic_launcher_background"></ImageView>
     </LinearLayout>
 
 

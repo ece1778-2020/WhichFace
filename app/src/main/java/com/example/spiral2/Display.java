@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -60,8 +61,6 @@ public class Display extends AppCompatActivity {
 
     ProgressDialog submitProgress;
 
-    String glass= "0";
-    Button removeglass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +68,7 @@ public class Display extends AppCompatActivity {
         setContentView(R.layout.activity_display);
         Intent intent = getIntent();
         ImageView image = (ImageView)findViewById(R.id.originImage);
-        removeglass=findViewById(R.id.rglass);
         Uri myUri = Uri.parse(intent.getExtras().getString("imageUri"));
-
-        removeglass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                glass="1";
-            }
-        });
 
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(myUri));
@@ -242,6 +233,14 @@ public class Display extends AppCompatActivity {
 
     public void writeDatabase(String id,String name,String count,String score){
         Map<String, Object> image = new HashMap<>();
+        CheckBox rglassCheckbox =(CheckBox)findViewById(R.id.rglassCheckbox);
+        Boolean rglassChecked = rglassCheckbox.isChecked();
+        String glass;
+        if(rglassChecked){
+            glass = "1";
+        }else{
+            glass = "0";
+        }
         image.put("name", name);
         image.put("count",count);
         image.put("score",score);
