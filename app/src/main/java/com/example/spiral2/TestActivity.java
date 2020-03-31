@@ -46,6 +46,8 @@ public class TestActivity  extends AppCompatActivity {
     private ArrayList<String> countlist = new ArrayList<String>();
     private ArrayList<String> labellist = new ArrayList<String>();
     private ArrayList<String> resultlist = new ArrayList<String>();
+    private ArrayList<String> guesslist = new ArrayList<String>();
+
 
 
     private int check;
@@ -82,11 +84,13 @@ public class TestActivity  extends AppCompatActivity {
                                                        String count = document.getString("count");
                                                        String label=document.getString("name");
                                                        String score = document.getString("score");
+                                                       String guess=document.getString("guess");
                                                        String uid=document.getId();
                                                        uidlist.add(uid);
                                                        labellist.add(label);
                                                        scorelist.add(score);
                                                        countlist.add(count);
+                                                       guesslist.add(guess);
 
 
 
@@ -99,6 +103,7 @@ public class TestActivity  extends AppCompatActivity {
                                                            intent.putStringArrayListExtra("countlist",countlist);
                                                            intent.putStringArrayListExtra("labellist",labellist);
                                                            intent.putStringArrayListExtra("resultlist",resultlist);
+                                                           intent.putStringArrayListExtra("guesslist",guesslist);
                                                            check=check-1;
                                                            intent.putExtra("position",0);
                                                            intent.putExtra("number",check);

@@ -240,8 +240,10 @@ public class Display extends AppCompatActivity {
         image.put("count",count);
         image.put("score",score);
         String check="0";
+        String guess="0";
         image.put("glass",glass);
         image.put("check",check);
+        image.put("guess",guess);
         db.collection("images").document(id)
                 .set(image)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
