@@ -25,6 +25,9 @@ import android.widget.ProgressBar;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -71,8 +74,11 @@ public class AccuracyActivity  extends AppCompatActivity {
     private ArrayList<String> scorelist = new ArrayList<String>();
     private ArrayList<String> countlist = new ArrayList<String>();
     private ArrayList<String> labellist = new ArrayList<String>();
+    private ArrayList<String> clabellist = new ArrayList<String>();
+    private ArrayList<String> cscorelist = new ArrayList<String>();
     private ArrayList<String> resultlist = new ArrayList<String>();
-
+    private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
     private int position;
     private int number;
 
@@ -84,7 +90,8 @@ public class AccuracyActivity  extends AppCompatActivity {
         sReference=storage.getReference();
         mfirestore=FirebaseFirestore.getInstance();
         initializeView();
-
+        gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
+        recyclerView.setLayoutManager(gridLayoutManager);
         Intent i=getIntent();
         uidlist=i.getStringArrayListExtra("uidlist");
         scorelist=i.getStringArrayListExtra("scorelist");
@@ -171,6 +178,51 @@ public class AccuracyActivity  extends AppCompatActivity {
         }else{
             accuracy.setTextColor(Color.GREEN);
         }
+
+        mfirestore.collection("images").document(uidlist.get(position)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    int total=Integer.parseInt(scorelist.get(position));
+                    int count=Integer.parseInt(document.getString("count"));
+                    total= (count*(100-total))/100;
+                    int guess=Integer.parseInt(document.getString("guess"));
+                    while(guess>0){
+                        guess=guess-1;
+                        int cscore=Integer.parseInt(document.getString("numbername"+Integer.toString(guess)));
+                        cscore=(cscore*100)/total;
+                        if(cscore==0)
+                            continue;
+
+
+                        cscorelist.add(Integer.toString(cscore));
+                        String name=document.getString("name"+Integer.toString(guess));
+                        clabellist.add(name);
+
+
+                    }
+                    Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this,clabellist,cscorelist);
+                    recyclerView.setAdapter(customAdapter);
+
+
+
+
+
+
+
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+
+
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,6 +262,8 @@ public class AccuracyActivity  extends AppCompatActivity {
         name = (TextView)findViewById(R.id.label);
         accuracy=(TextView)findViewById(R.id.score);
         progressBar = findViewById(R.id.progressBar);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
     }
 
     public void cutFace(final Bitmap bitmap){
