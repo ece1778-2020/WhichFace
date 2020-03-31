@@ -4,44 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
     <TextView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="Welcome to WhichFace"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="30dp"
-        />
-
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="uploadOnClick"
-        android:text="Upload" />
-
-    <Button
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/advent_pro_thin"
+        android:gravity="center"
+        android:text="WhichFace"
+        android:textSize="56sp"
+        android:paddingTop="80dp"
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
         android:layout_gravity="center_horizontal"
-        android:text="Test"
-       />
-
-    <Button
-        android:id="@+id/photo"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="photo library"
-   />
+        app:srcCompat="@drawable/face_icon1" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/upload"
+                android:background="@null"
+                android:onClick="uploadOnClick"
+                android:scaleType="fitStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/cloud_storage"
+                tools:srcCompat="@drawable/cloud_storage" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/test"
+                android:scaleType="fitStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                app:srcCompat="@drawable/browser1"
+
+                tools:srcCompat="@drawable/browser1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/photo"
+                android:background="@null"
+                android:scaleType="fitStart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/picture"
+                tools:srcCompat="@drawable/picture" />
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

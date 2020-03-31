@@ -14,6 +14,7 @@ import android.graphics.Region;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -177,15 +178,27 @@ public class AccuracyActivity  extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     private void back()
     {
+        /*
         Intent intent = new Intent(AccuracyActivity.this, PhotoLibraryActivity.class);
         intent.putStringArrayListExtra("labellist",labellist);
         intent.putStringArrayListExtra("uidlist",uidlist);
         intent.putStringArrayListExtra("scorelist",scorelist);
         startActivity(intent);
+        */
+        onBackPressed();
 
     }
 

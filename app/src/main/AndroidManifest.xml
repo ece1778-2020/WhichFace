@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Display"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:parentActivityName=".MainActivity" android:label="Upload" android:name=".Display"></activity>
+        <activity android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestActivity" />
-        <activity android:name=".TestUnitActivity" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".PhotoLibraryActivity" />
-        <activity android:name=".AccuracyActivity" />
+        <activity android:parentActivityName=".MainActivity" android:label="Test"  android:name=".TestActivity" />
+        <activity android:parentActivityName=".MainActivity" android:label="Test" android:name=".TestUnitActivity" />
+        <activity android:parentActivityName=".MainActivity" android:label="Result" android:name=".ResultActivity" />
+        <activity android:parentActivityName=".MainActivity" android:label="Gallery" android:name=".PhotoLibraryActivity" />
+        <activity android:parentActivityName=".MainActivity" android:label="Accuracy" android:name=".AccuracyActivity" />
     </application>
 
 </manifest>

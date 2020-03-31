@@ -20,8 +20,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,8 +59,9 @@ public class Display extends AppCompatActivity {
     Boolean rawImageSuccess = false;
     Boolean cutFaceSuccess = false;
     Boolean nameSuccess = false;
-    String glass= "0";
-    Button removeglass;
+
+    ProgressDialog submitProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,26 +69,29 @@ public class Display extends AppCompatActivity {
         setContentView(R.layout.activity_display);
         Intent intent = getIntent();
         ImageView image = (ImageView)findViewById(R.id.originImage);
-        removeglass=findViewById(R.id.rglass);
         Uri myUri = Uri.parse(intent.getExtras().getString("imageUri"));
-
-        removeglass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                glass="1";
-            }
-        });
 
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(myUri));
             image.setImageBitmap(bitmap);
+
             cutFace(bitmap);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void cutFace(final Bitmap bitmap){
+        final ProgressDialog cuttingProgress = showProgress("cutting face");
         FirebaseVisionFaceDetectorOptions highAccuracyOpts =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
@@ -127,7 +133,6 @@ public class Display extends AppCompatActivity {
                                                     face.getContour(FirebaseVisionFaceContour.FACE).getPoints();
 
 
-
                                             //Bitmap src = BitmapFactory.decodeResource(getResources(), cropDrawable);
                                             Bitmap output =
                                                     Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -148,8 +153,9 @@ public class Display extends AppCompatActivity {
                                             canvas.drawBitmap(bitmap, 0, 0, paint);
 
                                             ImageView cover = (ImageView) findViewById(R.id.cutFace);
+                                            cuttingProgress.cancel();
                                             cover.setImageBitmap(output);
-
+                                            showToast("face cut");
                                             // If classification was enabled:
                                             if (face.getSmilingProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
                                                 float smileProb = face.getSmilingProbability();
@@ -176,6 +182,7 @@ public class Display extends AppCompatActivity {
                                         // Task failed with an exception
                                         // ...
                                         e.printStackTrace();
+                                        showToast("Fail to cut face");
                                     }
                                 });
 
@@ -193,7 +200,7 @@ public class Display extends AppCompatActivity {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String id = Long.toString(timestamp.getTime());
-
+        submitProgress = showProgress("submitting images");
         upload(originBitmap,id,true);
         upload(cutFaceBitmap,id,false);
         writeDatabase(id,name.getText().toString(),"0","0");
@@ -236,6 +243,14 @@ public class Display extends AppCompatActivity {
 
     public void writeDatabase(String id,String name,String count,String score){
         Map<String, Object> image = new HashMap<>();
+        CheckBox rglassCheckbox =(CheckBox)findViewById(R.id.rglassCheckbox);
+        Boolean rglassChecked = rglassCheckbox.isChecked();
+        String glass;
+        if(rglassChecked){
+            glass = "1";
+        }else{
+            glass = "0";
+        }
         image.put("name", name);
         image.put("count",count);
         image.put("score",score);
@@ -277,9 +292,21 @@ public class Display extends AppCompatActivity {
             showToast("upload succeed");
             Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
             startActivity(myIntent);
+            submitProgress.cancel();
             finish();
         }
     }
+
+    public ProgressDialog showProgress(String msg)
+    {
+        ProgressDialog progressDialog = new ProgressDialog(Display.this);
+        progressDialog.setMessage(msg);
+        progressDialog.setCancelable(false); // 加载完成消失
+        progressDialog.show();
+        return progressDialog;
+        //progressDialog.cancel(); to cancel the dialog
+    }
+
 
 
 }

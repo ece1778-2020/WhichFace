@@ -3,12 +3,14 @@ package com.example.spiral2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button test, photo;
+    ImageButton test, photo;
     private FirebaseFirestore mfirestore;
     private int check;
     private static final String TAG = "start";
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mfirestore=FirebaseFirestore.getInstance();
         check=0;
         initializeViews();
+        //hideBar();
 
         //go to test mode
         test.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
                     photolibrary();
             }
         });
+    }
+
+    public void hideBar(){
+        View decorView = getWindow().getDecorView();
+// Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+// Remember that you should never show the action bar if the
+// status bar is hidden, so hide that too if necessary.
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
     }
 
     private void photolibrary(){
@@ -106,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, Display.class);
             i.putExtra("imageUri", imageUri.toString());
             startActivity(i);
-            finish();
+            //finish();
         }
     }
 }

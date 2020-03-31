@@ -13,14 +13,11 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Photo library"
+        android:text="Your photo library"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="30dp"
         />
-
-
-
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
@@ -38,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
-
 
 
     <ProgressBar
