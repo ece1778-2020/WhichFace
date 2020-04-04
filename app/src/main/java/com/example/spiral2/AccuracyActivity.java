@@ -203,7 +203,7 @@ public class AccuracyActivity  extends AppCompatActivity {
 
 
                     }
-                    Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this,clabellist,cscorelist);
+                    Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this,clabellist,cscorelist,labellist,uidlist,scorelist);
                     recyclerView.setAdapter(customAdapter);
 
 
