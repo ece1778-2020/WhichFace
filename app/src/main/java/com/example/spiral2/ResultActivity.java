@@ -94,10 +94,16 @@ public class ResultActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                backToMain();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void backToMain() {
+        Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+        startActivity(myIntent);
+        finish();
     }
 
     private void display1() {
