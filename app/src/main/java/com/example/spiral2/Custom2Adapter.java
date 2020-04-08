@@ -32,13 +32,9 @@ public class Custom2Adapter extends RecyclerView.Adapter <Custom2Adapter.MyViewH
         this.uid=uid;
         this.score=score;
     }
-
-
-
-
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row2layout, parent, false);
         // set the view's size, margins, paddings and layout parameters

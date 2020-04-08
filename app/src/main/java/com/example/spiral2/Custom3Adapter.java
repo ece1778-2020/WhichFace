@@ -37,17 +37,10 @@ public class Custom3Adapter extends RecyclerView.Adapter <Custom3Adapter.MyViewH
         this.uidlist=uidlist;
         this.scorelist=scorelist;
     }
-
-
-
-
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row3layout, parent, false);
         // set the view's size, margins, paddings and layout parameters
-
         return new MyViewHolder(v);
     }
 
@@ -71,11 +64,6 @@ public class Custom3Adapter extends RecyclerView.Adapter <Custom3Adapter.MyViewH
                         intent.putExtra("scorelist",scorelist);
                         intent.putExtra("position",check);
                         context.startActivity(intent);
-
-
-
-
-
                     }
                 });
                 break;
@@ -84,17 +72,11 @@ public class Custom3Adapter extends RecyclerView.Adapter <Custom3Adapter.MyViewH
                 i=i+1;
             }
         }
-
-
     }
     @Override
     public int getItemCount() {
         return label.size();
     }
-
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's
 
