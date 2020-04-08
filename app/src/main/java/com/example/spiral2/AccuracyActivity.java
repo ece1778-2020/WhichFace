@@ -242,7 +242,7 @@ public class AccuracyActivity extends AppCompatActivity {
         TableView tableView = this.findViewById(R.id.accuracy_list);
 
         // Create our custom TableView Adapter
-        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this,labellist,position);
+        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this,labellist,position,uidlist,scorelist);
 
         // Set this adapter to the our TableView
         tableView.setAdapter(adapter);

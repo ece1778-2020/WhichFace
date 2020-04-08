@@ -1,6 +1,7 @@
 package com.example.spiral2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,17 @@ public class AccuracyConfuseAdapter extends AbstractTableAdapter<ColumnHeader, R
 
     Context context;
     ArrayList<String> labellist;
+    ArrayList<String> uidlist;
+    ArrayList<String> scorelist;
     int anwserPosition;
 
-    public AccuracyConfuseAdapter(Context context1, ArrayList<String> labellist1, int anwserPosition1) {
+    public AccuracyConfuseAdapter(Context context1, ArrayList<String> labellist1, int anwserPosition1,ArrayList<String> uidlist1, ArrayList<String> scorelist1 ) {
         super(context1);
         context = context1;
         labellist = labellist1;
         anwserPosition = anwserPosition1;
+        uidlist = uidlist1;
+        scorelist = scorelist1;
     }
 
     /**
@@ -84,8 +89,27 @@ public class AccuracyConfuseAdapter extends AbstractTableAdapter<ColumnHeader, R
         // Get the holder to update cell item text
         MyCellViewHolder viewHolder = (MyCellViewHolder) holder;
         viewHolder.cell_textview.setText(cell.getData());
-        if(cell.getData().equals(labellist.get( anwserPosition))){
-            viewHolder.cell_textview.setTextColor(Color.BLUE);
+
+        int i = 0;
+        while (i < labellist.size()) {
+            if (cell.getData().equals(labellist.get(i))) {
+                viewHolder.cell_textview.setTextColor(Color.BLUE);
+                final int check = i;
+                viewHolder.cell_textview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, AccuracyActivity.class);
+                        intent.putExtra("uidlist", uidlist);
+                        intent.putExtra("labellist", labellist);
+                        intent.putExtra("scorelist", scorelist);
+                        intent.putExtra("position", check);
+                        context.startActivity(intent);
+                    }
+                });
+                break;
+            } else {
+                i = i + 1;
+            }
         }
 
         // If your TableView should have auto resize for cells & columns.
