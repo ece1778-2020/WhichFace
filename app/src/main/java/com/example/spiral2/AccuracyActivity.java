@@ -398,4 +398,3 @@ public class AccuracyActivity extends AppCompatActivity {
     }
 
 }
-
