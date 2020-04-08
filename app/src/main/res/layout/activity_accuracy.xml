@@ -5,22 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TestUnitActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:text="Accuracy"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -49,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textSize="35dp"
+            android:layout_marginLeft="20dp"
             android:hint="name" />
 
         <TextView
@@ -56,14 +47,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
             android:hint="Accuracy" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
+           android:layout_gravity="center_horizontal"
             android:text="Confussion List"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -92,8 +85,6 @@
                 app:row_header_width="@dimen/default_row_header_width"
                 />
         </LinearLayout>
-
-
 
         <ProgressBar
             android:id="@+id/progressBar"

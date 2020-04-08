@@ -278,7 +278,6 @@ public class AccuracyActivity extends AppCompatActivity {
         rface = (ImageView) findViewById(R.id.rface);
         mface = (ImageView) findViewById(R.id.mface);
 
-        back = findViewById(R.id.back);
         name = (TextView) findViewById(R.id.label);
         accuracy = (TextView) findViewById(R.id.score);
         progressBar = findViewById(R.id.progressBar);

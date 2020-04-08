@@ -86,79 +86,6 @@ public class ResultActivity extends AppCompatActivity {
 
         display2();
 
-//        for ( int j=0;j<number;j++){
-//            path="face/"+uidlist.get(j)+".jpg";
-//            Log.d(TAG, path);
-//            StorageReference photoRef = sReference.child(path);
-//            final long ONE_MEGABYTE = 1024 * 1024;
-//            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                                                                     @Override
-//                                                                     public void onSuccess(byte[] bytes) {
-//                                                                         // Data for "images/island.jpg" is returns, use this as needed
-//                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                                                         mface.add(graph);
-//                                                                         Log.d(TAG, "zheli");
-//
-//                                                                         //View2.setImageBitmap(graph);;
-//                                                                     }
-//                                                                 }
-//            ).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    // Handle any errors
-//                    Log.d(TAG, "zhe ge qing kuang");
-//                }
-//            });
-//
-//            path="raw_images/"+uidlist.get(j)+".jpg";
-//            Log.d(TAG, path);
-//            photoRef = sReference.child(path);
-//            photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                                                                     @Override
-//                                                                     public void onSuccess(byte[] bytes) {
-//                                                                         // Data for "images/island.jpg" is returns, use this as needed
-//                                                                         graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                                                                         rface.add(graph);
-//                                                                         Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
-//                                                                         i=i+1;
-//                                                                         if(i == number){
-//
-//                                                                             CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface,resultlist,labellist);
-//                                                                             recyclerView.setAdapter(customAdapter);
-//                                                                         }
-//
-//                                                                         //View2.setImageBitmap(graph);;
-//                                                                     }
-//                                                                 }
-//            ).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    // Handle any errors
-//                    Log.d(TAG, "zhe ge qing kuang");
-//                }
-//            });
-//        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
@@ -245,7 +172,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void initializeView() {
-        back = findViewById(R.id.back);
+
 
         progressBar = findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

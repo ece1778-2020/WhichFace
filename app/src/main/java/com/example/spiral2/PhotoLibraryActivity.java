@@ -147,7 +147,6 @@ public class PhotoLibraryActivity extends AppCompatActivity {
 
 
     private void initializeView() {
-        back = findViewById(R.id.back);
 
         progressBar = findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

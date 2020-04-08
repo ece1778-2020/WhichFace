@@ -26,7 +26,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="444dp"
+        android:layout_height="wrap_content"
         tools:context=".ProfileActivity">
 
         <androidx.recyclerview.widget.RecyclerView
