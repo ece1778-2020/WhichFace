@@ -2,6 +2,7 @@ package com.example.spiral2;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.evrencoskun.tableview.TableView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -84,6 +86,7 @@ public class AccuracyActivity extends AppCompatActivity {
     private GridLayoutManager gridLayoutManager;
     private int position;
     private int number;
+    private AccuracyActivity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,8 @@ public class AccuracyActivity extends AppCompatActivity {
         scorelist = i.getStringArrayListExtra("scorelist");
         labellist = i.getStringArrayListExtra("labellist");
         position = i.getIntExtra("position", 0);
+
+        setTable(getApplicationContext());
 
         Log.d(TAG, Integer.toString(number));
         //show test image
@@ -211,6 +216,43 @@ public class AccuracyActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setTable(Context context) {
+
+        List<RowHeader> mRowHeaderList  = new ArrayList<RowHeader>();
+        List<ColumnHeader> mColumnHeaderList = new ArrayList<ColumnHeader>();
+        List<List<Cell>> mCellList=new ArrayList<List<Cell>>();
+
+        mColumnHeaderList.add(new ColumnHeader("col1"));
+        mColumnHeaderList.add(new ColumnHeader("col2"));
+
+        mRowHeaderList.add(new RowHeader("row1"));
+        mRowHeaderList.add(new RowHeader("row2"));
+
+        List<Cell> cellList1 = new ArrayList<Cell>();
+        cellList1.add(new Cell("cel11"));
+        cellList1.add(new Cell("cel12"));
+
+        List<Cell> cellList2 = new ArrayList<Cell>();
+        cellList2.add(new Cell("cel21"));
+        cellList2.add(new Cell("cel22"));
+
+        mCellList.add(cellList1);
+        mCellList.add(cellList2);
+
+
+
+        TableView tableView = this.findViewById(R.id.accuracy_list);
+
+        // Create our custom TableView Adapter
+        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this);
+
+        // Set this adapter to the our TableView
+        tableView.setAdapter(adapter);
+
+        // Let's set datas of the TableView on the Adapter
+        adapter.setAllItems(mColumnHeaderList, mRowHeaderList, mCellList);
     }
 
     @Override

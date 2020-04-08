@@ -76,7 +76,17 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
         </RelativeLayout>
+
+        <com.evrencoskun.tableview.TableView
+            android:id="@+id/accuracy_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:column_header_height="@dimen/default_column_header_height"
+            app:row_header_width="@dimen/default_row_header_width"
+            />
 
         <ProgressBar
             android:id="@+id/progressBar"
