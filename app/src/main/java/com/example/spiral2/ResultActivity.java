@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.graphics.Bitmap;
+
 import com.google.firebase.firestore.Query.Direction;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,7 +51,7 @@ public class ResultActivity extends AppCompatActivity {
     private String path;
     private String text;
     private int number;
-    private int i,j;
+    private int i, j;
     private static final String TAG = "finalre";
     private Bitmap graph;
 
@@ -67,8 +69,8 @@ public class ResultActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        i=0;
-        j=0;
+        i = 0;
+        j = 0;
         path = null;
         mAuth = FirebaseAuth.getInstance();
         mfirestore = FirebaseFirestore.getInstance();
@@ -78,16 +80,24 @@ public class ResultActivity extends AppCompatActivity {
         gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         Intent intent = getIntent();
-        uidlist=intent.getStringArrayListExtra("uidlist");
-        labellist=intent.getStringArrayListExtra("labellist");
-        resultlist=intent.getStringArrayListExtra("resultlist");
-        number=intent.getIntExtra("number",0);
+        uidlist = intent.getStringArrayListExtra("uidlist");
+        labellist = intent.getStringArrayListExtra("labellist");
+        resultlist = intent.getStringArrayListExtra("resultlist");
+        number = intent.getIntExtra("number", 0);
+        back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(myIntent);
+                finish();
+            }
+        });
         display1();
 
         display2();
 
     }
-
 
 
     @Override
@@ -107,7 +117,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void display1() {
-        path="raw_images/"+uidlist.get(rface.size())+".jpg";
+        path = "raw_images/" + uidlist.get(rface.size()) + ".jpg";
         Log.d(TAG, path);
         StorageReference photoRef = sReference.child(path);
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -117,13 +127,12 @@ public class ResultActivity extends AppCompatActivity {
                                                                      // Data for "images/island.jpg" is returns, use this as needed
                                                                      graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                                                      rface.add(graph);
-                                                                     Log.d(TAG, "zheli:"+Integer.toString(i)+"--"+Integer.toString(number));
-                                                                     i=i+1;
-                                                                     if(i == uidlist.size()){
+                                                                     Log.d(TAG, "zheli:" + Integer.toString(i) + "--" + Integer.toString(number));
+                                                                     i = i + 1;
+                                                                     if (i == uidlist.size()) {
 
 
-                                                                     }
-                                                                     else{
+                                                                     } else {
                                                                          display1();
                                                                      }
 
@@ -141,7 +150,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void display2() {
-        path="face/"+uidlist.get(mface.size())+".jpg";
+        path = "face/" + uidlist.get(mface.size()) + ".jpg";
 
 
         StorageReference photoRef = sReference.child(path);
@@ -152,15 +161,14 @@ public class ResultActivity extends AppCompatActivity {
                                                                      // Data for "images/island.jpg" is returns, use this as needed
                                                                      graph = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                                                      mface.add(graph);
-                                                                     Log.d(TAG, "zheli:"+Integer.toString(j)+"--"+Integer.toString(number));
-                                                                     j=j+1;
-                                                                     if(j == uidlist.size()){
+                                                                     Log.d(TAG, "zheli:" + Integer.toString(j) + "--" + Integer.toString(number));
+                                                                     j = j + 1;
+                                                                     if (j == uidlist.size()) {
                                                                          Log.d(TAG, Integer.toString(rface.size()));
                                                                          Log.d(TAG, Integer.toString(mface.size()));
-                                                                         CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface,resultlist,labellist);
+                                                                         CustomAdapter customAdapter = new CustomAdapter(ResultActivity.this, mface, rface, resultlist, labellist);
                                                                          recyclerView.setAdapter(customAdapter);
-                                                                     }
-                                                                     else{
+                                                                     } else {
                                                                          display2();
                                                                      }
 

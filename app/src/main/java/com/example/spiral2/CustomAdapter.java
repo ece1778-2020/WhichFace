@@ -44,6 +44,7 @@ public class CustomAdapter extends RecyclerView.Adapter <CustomAdapter.MyViewHol
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // set the data in items
+        Log.d("rface", String.valueOf(rface.size()));
         holder.rimage.setImageBitmap(rface.get(position));
         holder.mimage.setImageBitmap(mface.get(position));
         if(result.get(position).equals("yes")){
