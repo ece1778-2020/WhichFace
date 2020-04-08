@@ -55,8 +55,18 @@ public class Custom3Adapter extends RecyclerView.Adapter <Custom3Adapter.MyViewH
     @Override
     public void onBindViewHolder( MyViewHolder holder, final int position) {
         // set the data in items
+        final String TAG = "reason";
 
-        holder.confuse.setText(label.get(position)+":            "+score.get(position)+"% confussion rate");
+        String comment=" ";
+        String result="";
+        int j=0;
+        while((j+label.get(position).length())<14){
+            j=j+1;
+            result=result+comment;
+        }
+        Log.d(TAG, "zheli:"+Integer.toString(label.get(position).length())+"--"+Integer.toString(result.length()));
+
+        holder.confuse.setText(label.get(position)+":"+ result+score.get(position)+"% confussion rate");
         int i=0;
         while(i<labellist.size()){
             if(label.get(position).equals(labellist.get(i))){
