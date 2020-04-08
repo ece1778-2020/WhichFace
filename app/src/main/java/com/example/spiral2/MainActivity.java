@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void photolibrary(){
+        if(labellist.size()<=1){
         mfirestore.collection("images")
                 .orderBy("score", Query.Direction.ASCENDING)
                 .get()
@@ -99,7 +100,15 @@ public class MainActivity extends AppCompatActivity {
                                            }
                                        }
 
-                );
+                );}
+        else{
+            Intent intent = new Intent(MainActivity.this, PhotoLibraryActivity.class);
+            intent.putStringArrayListExtra("labellist",labellist);
+            intent.putStringArrayListExtra("uidlist",uidlist);
+            intent.putStringArrayListExtra("scorelist",scorelist);
+            intent.putExtra("check",check);
+            startActivity(intent);
+        }
 
     }
 
