@@ -2,6 +2,7 @@ package com.example.spiral2;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.evrencoskun.tableview.TableView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,12 +56,13 @@ import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.storage.StorageReference;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AccuracyActivity  extends AppCompatActivity {
+public class AccuracyActivity extends AppCompatActivity {
     private ImageView rface, mface;
     private TextView name, accuracy;
 
@@ -81,26 +86,29 @@ public class AccuracyActivity  extends AppCompatActivity {
     private GridLayoutManager gridLayoutManager;
     private int position;
     private int number;
+    private AccuracyActivity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accuracy);
         storage = FirebaseStorage.getInstance();
-        sReference=storage.getReference();
-        mfirestore=FirebaseFirestore.getInstance();
+        sReference = storage.getReference();
+        mfirestore = FirebaseFirestore.getInstance();
         initializeView();
         gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        Intent i=getIntent();
-        uidlist=i.getStringArrayListExtra("uidlist");
-        scorelist=i.getStringArrayListExtra("scorelist");
-        labellist=i.getStringArrayListExtra("labellist");
-        position=i.getIntExtra("position",0);
+        Intent i = getIntent();
+        uidlist = i.getStringArrayListExtra("uidlist");
+        scorelist = i.getStringArrayListExtra("scorelist");
+        labellist = i.getStringArrayListExtra("labellist");
+        position = i.getIntExtra("position", 0);
+
+
 
         Log.d(TAG, Integer.toString(number));
         //show test image
-        String path="face/"+uidlist.get(position)+".jpg";
+        String path = "face/" + uidlist.get(position) + ".jpg";
         Log.d(TAG, path);
         StorageReference photoRef = sReference.child(path);
         final long ONE_MEGABYTE = 1024 * 1024;
@@ -109,19 +117,18 @@ public class AccuracyActivity  extends AppCompatActivity {
                                                                  public void onSuccess(byte[] bytes) {
                                                                      // Data for "images/island.jpg" is returns, use this as needed
                                                                      graph1 = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                                     final DocumentReference ref=mfirestore.collection("images").document(uidlist.get(position));
+                                                                     final DocumentReference ref = mfirestore.collection("images").document(uidlist.get(position));
                                                                      ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                                          @Override
                                                                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                              if (task.isSuccessful()) {
                                                                                  DocumentSnapshot document = task.getResult();
-                                                                                 String check=document.getString("check");
-                                                                                 if(check.equals("1")){
-                                                                                     ref.update("check","0");
+                                                                                 String check = document.getString("check");
+                                                                                 if (check.equals("1")) {
+                                                                                     ref.update("check", "0");
                                                                                      cutFace(graph1);
 
-                                                                                 }
-                                                                                 else{
+                                                                                 } else {
                                                                                      mface.setImageBitmap(graph1);
 
                                                                                  }
@@ -145,7 +152,7 @@ public class AccuracyActivity  extends AppCompatActivity {
             }
         });
 
-        path="raw_images/"+uidlist.get(position)+".jpg";
+        path = "raw_images/" + uidlist.get(position) + ".jpg";
         Log.d(TAG, path);
         photoRef = sReference.child(path);
         photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -168,14 +175,14 @@ public class AccuracyActivity  extends AppCompatActivity {
         });
 
         name.setText(labellist.get(position));
-        int score=Integer.parseInt(scorelist.get(position));
-        accuracy.setText("Current Accuracy: "+scorelist.get(position)+"%");
+        int score = Integer.parseInt(scorelist.get(position));
+        accuracy.setText("Current Accuracy: " + scorelist.get(position) + "%");
 
-        if(score < 31){
+        if (score < 31) {
             accuracy.setTextColor(Color.RED);
-        }else if(score < 61){
+        } else if (score < 61) {
             accuracy.setTextColor(Color.BLUE);
-        }else{
+        } else {
             accuracy.setTextColor(Color.GREEN);
         }
 
@@ -185,32 +192,23 @@ public class AccuracyActivity  extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
 
-                    int total=Integer.parseInt(scorelist.get(position));
-                    int count=Integer.parseInt(document.getString("count"));
-                    total= (count*(100-total))/100;
-                    int guess=Integer.parseInt(document.getString("guess"));
-                    while(guess>0){
-                        guess=guess-1;
-                        int cscore=Integer.parseInt(document.getString("numbername"+Integer.toString(guess)));
-                        cscore=(cscore*100)/total;
-                        if(cscore==0)
+                    int total = Integer.parseInt(scorelist.get(position));
+                    int count = Integer.parseInt(document.getString("count"));
+                    total = (count * (100 - total)) / 100;
+                    int guess = Integer.parseInt(document.getString("guess"));
+                    while (guess > 0) {
+                        guess = guess - 1;
+                        int cscore = Integer.parseInt(document.getString("numbername" + Integer.toString(guess)));
+                        cscore = (cscore * 100) / total;
+                        if (cscore == 0)
                             continue;
-
-
                         cscorelist.add(Integer.toString(cscore));
-                        String name=document.getString("name"+Integer.toString(guess));
+                        String name = document.getString("name" + Integer.toString(guess));
                         clabellist.add(name);
-
-
                     }
-                    Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this,clabellist,cscorelist,labellist,uidlist,scorelist);
-                    recyclerView.setAdapter(customAdapter);
-
-
-
-
-
-
+                    //Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this, clabellist, cscorelist, labellist, uidlist, scorelist);
+                    //recyclerView.setAdapter(customAdapter);
+                    setTable();
 
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -218,18 +216,41 @@ public class AccuracyActivity  extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
     }
+
+    private void setTable() {
+
+        List<RowHeader> mRowHeaderList  = new ArrayList<RowHeader>();
+        List<ColumnHeader> mColumnHeaderList = new ArrayList<ColumnHeader>();
+        List<List<Cell>> mCellList=new ArrayList<List<Cell>>();
+
+        mColumnHeaderList.add(new ColumnHeader("wrong answer"));
+        mColumnHeaderList.add(new ColumnHeader("confusion rate"));
+
+        mRowHeaderList.add(new RowHeader("row1"));
+        mRowHeaderList.add(new RowHeader("row2"));
+
+        for(int i = 0;i<clabellist.size();i++){
+            List<Cell> cellList = new ArrayList<Cell>();
+            cellList.add(new Cell(clabellist.get(i)));
+            cellList.add(new Cell(cscorelist.get(i)));
+            mCellList.add(cellList);
+        }
+
+
+
+        TableView tableView = this.findViewById(R.id.accuracy_list);
+
+        // Create our custom TableView Adapter
+        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this,labellist,position);
+
+        // Set this adapter to the our TableView
+        tableView.setAdapter(adapter);
+
+        // Let's set datas of the TableView on the Adapter
+        adapter.setAllItems(mColumnHeaderList, mRowHeaderList, mCellList);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -241,8 +262,7 @@ public class AccuracyActivity  extends AppCompatActivity {
     }
 
 
-    private void back()
-    {
+    private void back() {
         /*
         Intent intent = new Intent(AccuracyActivity.this, PhotoLibraryActivity.class);
         intent.putStringArrayListExtra("labellist",labellist);
@@ -255,18 +275,18 @@ public class AccuracyActivity  extends AppCompatActivity {
     }
 
     private void initializeView() {
-        rface=(ImageView)findViewById(R.id.rface);
-        mface=(ImageView)findViewById(R.id.mface);
+        rface = (ImageView) findViewById(R.id.rface);
+        mface = (ImageView) findViewById(R.id.mface);
 
-        back=findViewById(R.id.back);
-        name = (TextView)findViewById(R.id.label);
-        accuracy=(TextView)findViewById(R.id.score);
+        back = findViewById(R.id.back);
+        name = (TextView) findViewById(R.id.label);
+        accuracy = (TextView) findViewById(R.id.score);
         progressBar = findViewById(R.id.progressBar);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
     }
 
-    public void cutFace(final Bitmap bitmap){
+    public void cutFace(final Bitmap bitmap) {
         FirebaseVisionFaceDetectorOptions highAccuracyOpts =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setPerformanceMode(FirebaseVisionFaceDetectorOptions.ACCURATE)
@@ -308,19 +328,18 @@ public class AccuracyActivity  extends AppCompatActivity {
                                                     face.getContour(FirebaseVisionFaceContour.FACE).getPoints();
 
 
-
                                             //Bitmap src = BitmapFactory.decodeResource(getResources(), cropDrawable);
                                             Bitmap output =
                                                     Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
                                             Canvas canvas = new Canvas(output);
                                             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                                             paint.setColor(Color.RED);
-                                            Path path=new Path();
-                                            path.moveTo(faceContour.get(0).getX(),faceContour.get(0).getY());
-                                            for(int i=1;i<faceContour.size();i++){
-                                                Log.d("facex",String.valueOf(faceContour.get(i).getX()));
-                                                Log.d("facey",String.valueOf(faceContour.get(i).getY()));
-                                                path.lineTo(faceContour.get(i).getX(),faceContour.get(i).getY());
+                                            Path path = new Path();
+                                            path.moveTo(faceContour.get(0).getX(), faceContour.get(0).getY());
+                                            for (int i = 1; i < faceContour.size(); i++) {
+                                                Log.d("facex", String.valueOf(faceContour.get(i).getX()));
+                                                Log.d("facey", String.valueOf(faceContour.get(i).getY()));
+                                                path.lineTo(faceContour.get(i).getX(), faceContour.get(i).getY());
                                             }
                                             paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
                                             //canvas.drawPath(path, paint);
@@ -330,7 +349,7 @@ public class AccuracyActivity  extends AppCompatActivity {
 
                                             mface.setImageBitmap(output);
 
-                                            String filepath="face/"+uidlist.get(position)+".jpg";
+                                            String filepath = "face/" + uidlist.get(position) + ".jpg";
                                             StorageReference imagesRef = sReference.child(filepath);
                                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                                             output.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -350,7 +369,7 @@ public class AccuracyActivity  extends AppCompatActivity {
                                             // If classification was enabled:
                                             if (face.getSmilingProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
                                                 float smileProb = face.getSmilingProbability();
-                                                Log.d("smileProp",String.valueOf(smileProb));
+                                                Log.d("smileProp", String.valueOf(smileProb));
                                                 //file:///storage/emulated/0/Download/th.jpeg
                                             }
                                             if (face.getRightEyeOpenProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
@@ -360,7 +379,7 @@ public class AccuracyActivity  extends AppCompatActivity {
                                             // If face tracking was enabled:
                                             if (face.getTrackingId() != FirebaseVisionFace.INVALID_ID) {
                                                 int id = face.getTrackingId();
-                                                Log.d("fid",String.valueOf(id));
+                                                Log.d("fid", String.valueOf(id));
                                             }
                                         }
 
