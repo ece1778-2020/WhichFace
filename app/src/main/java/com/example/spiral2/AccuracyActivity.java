@@ -104,7 +104,7 @@ public class AccuracyActivity extends AppCompatActivity {
         labellist = i.getStringArrayListExtra("labellist");
         position = i.getIntExtra("position", 0);
 
-        setTable(getApplicationContext());
+
 
         Log.d(TAG, Integer.toString(number));
         //show test image
@@ -206,9 +206,9 @@ public class AccuracyActivity extends AppCompatActivity {
                         String name = document.getString("name" + Integer.toString(guess));
                         clabellist.add(name);
                     }
-                    Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this, clabellist, cscorelist, labellist, uidlist, scorelist);
-                    recyclerView.setAdapter(customAdapter);
-
+                    //Custom3Adapter customAdapter = new Custom3Adapter(AccuracyActivity.this, clabellist, cscorelist, labellist, uidlist, scorelist);
+                    //recyclerView.setAdapter(customAdapter);
+                    setTable();
 
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -218,35 +218,31 @@ public class AccuracyActivity extends AppCompatActivity {
 
     }
 
-    private void setTable(Context context) {
+    private void setTable() {
 
         List<RowHeader> mRowHeaderList  = new ArrayList<RowHeader>();
         List<ColumnHeader> mColumnHeaderList = new ArrayList<ColumnHeader>();
         List<List<Cell>> mCellList=new ArrayList<List<Cell>>();
 
-        mColumnHeaderList.add(new ColumnHeader("col1"));
-        mColumnHeaderList.add(new ColumnHeader("col2"));
+        mColumnHeaderList.add(new ColumnHeader("wrong answer"));
+        mColumnHeaderList.add(new ColumnHeader("confusion rate"));
 
         mRowHeaderList.add(new RowHeader("row1"));
         mRowHeaderList.add(new RowHeader("row2"));
 
-        List<Cell> cellList1 = new ArrayList<Cell>();
-        cellList1.add(new Cell("cel11"));
-        cellList1.add(new Cell("cel12"));
-
-        List<Cell> cellList2 = new ArrayList<Cell>();
-        cellList2.add(new Cell("cel21"));
-        cellList2.add(new Cell("cel22"));
-
-        mCellList.add(cellList1);
-        mCellList.add(cellList2);
+        for(int i = 0;i<clabellist.size();i++){
+            List<Cell> cellList = new ArrayList<Cell>();
+            cellList.add(new Cell(clabellist.get(i)));
+            cellList.add(new Cell(cscorelist.get(i)));
+            mCellList.add(cellList);
+        }
 
 
 
         TableView tableView = this.findViewById(R.id.accuracy_list);
 
         // Create our custom TableView Adapter
-        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this);
+        AccuracyConfuseAdapter adapter = new AccuracyConfuseAdapter(this,labellist,position);
 
         // Set this adapter to the our TableView
         tableView.setAdapter(adapter);

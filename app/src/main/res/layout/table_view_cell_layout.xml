@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/cell_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cell_container"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/cell_height"
-    android:background="@color/cell_background_color"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="2dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/table_view_default_text_color"
         android:textSize="@dimen/text_size"
-        tools:text="Cell Data"/>
+        tools:text="Cell Data" />
 </LinearLayout>

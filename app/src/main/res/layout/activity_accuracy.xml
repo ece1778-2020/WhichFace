@@ -78,15 +78,22 @@
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content">
 
-        <com.evrencoskun.tableview.TableView
-            android:id="@+id/accuracy_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <com.evrencoskun.tableview.TableView
+                android:id="@+id/accuracy_list"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:column_header_height="@dimen/default_column_header_height"
+                app:row_header_width="@dimen/default_row_header_width"
+                />
+        </LinearLayout>
 
-            app:column_header_height="@dimen/default_column_header_height"
-            app:row_header_width="@dimen/default_row_header_width"
-            />
+
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -1,6 +1,7 @@
 package com.example.spiral2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,19 @@ import android.widget.TextView;
 import com.evrencoskun.tableview.adapter.AbstractTableAdapter;
 import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder;
 
+import java.util.ArrayList;
+
 public class AccuracyConfuseAdapter extends AbstractTableAdapter<ColumnHeader, RowHeader, Cell> {
 
     Context context;
+    ArrayList<String> labellist;
+    int anwserPosition;
 
-    public AccuracyConfuseAdapter(Context context1) {
+    public AccuracyConfuseAdapter(Context context1, ArrayList<String> labellist1, int anwserPosition1) {
         super(context1);
         context = context1;
+        labellist = labellist1;
+        anwserPosition = anwserPosition1;
     }
 
     /**
@@ -76,7 +83,10 @@ public class AccuracyConfuseAdapter extends AbstractTableAdapter<ColumnHeader, R
 
         // Get the holder to update cell item text
         MyCellViewHolder viewHolder = (MyCellViewHolder) holder;
-        viewHolder.cell_textview.setText((String) cell.getData());
+        viewHolder.cell_textview.setText(cell.getData());
+        if(cell.getData().equals(labellist.get( anwserPosition))){
+            viewHolder.cell_textview.setTextColor(Color.BLUE);
+        }
 
         // If your TableView should have auto resize for cells & columns.
         // Then you should consider the below lines. Otherwise, you can ignore them.
